@@ -30,4 +30,4 @@ https://documenter.getpostman.com/view/4020808/2s9YXfcivT
 |`getting terminal arguments`|Bulk creator function should be connect to npm cli|:hourglass:|
 |`User Roles`|User roles should be customized|:hourglass:|
 |`trades should be manage a stream broker`|all transactions should be manage with a message broker. (Ex. Kafka, RabbitMQ)|:hourglass:|
-|`User Balance, UserPaper Quantities`|With using message broker, these column should be add an manage|:hourglass:|
+|`User Balance, UserPaper Quantities`|With using message broker, these column should be add and manage|:hourglass:|
