@@ -1,0 +1,16 @@
+version: '2.8'
+services:
+  db:
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_USER: tradeuser
+      POSTGRES_PASSWORD: tradepass
+      POSTGRES_DB: tradedb
+    ports:
+      - "5432:5432"
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
+volumes:
+  db-data:

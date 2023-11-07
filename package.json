@@ -1,0 +1,35 @@
+{
+  "name": "typescript-jwt",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "dev": "tsc && nodemon ./build/index.js",
+    "build": "tsc"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^5.0.0",
+    "@types/express": "^4.17.17",
+    "@types/jsonwebtoken": "^9.0.1",
+    "@types/node": "^18.15.11",
+    "nodemon": "^2.0.22",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.0.3"
+  },
+  "dependencies": {
+    "@types/express-fileupload": "^1.4.1",
+    "bcrypt": "^5.1.0",
+    "cloudinary": "^1.37.0",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "express-fileupload": "^1.4.0",
+    "jsonwebtoken": "^9.0.0",
+    "pg": "^8.10.0",
+    "reflect-metadata": "^0.1.13",
+    "sequelize": "^6.30.0",
+    "sequelize-typescript": "^2.1.5",
+    "yarn": "^1.22.19"
+  },
+  "repository": "git@github.com:iddemirjs/ts-be-for-deu.git",
+  "author": "iddemirfm1 <idris.demir@featuremind.com>"
+}
