@@ -7,6 +7,11 @@ Traders” . The purpose of the application is to educate users on the terminolo
 
 * Docker
 * NPM
+* Sequelize
+* JWT
+* Express
+* Bcrypt
+* Nodemon
 
 ## installation
 ```
