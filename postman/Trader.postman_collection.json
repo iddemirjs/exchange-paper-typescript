@@ -1,0 +1,566 @@
+{
+	"info": {
+		"_postman_id": "7de0863b-e8f7-4f6a-aaf8-eaead72df32e",
+		"name": "Trader",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "4020808",
+		"_collection_link": "https://orange-station-991691.postman.co/workspace/rest-try~2081ccf2-7cd4-46ce-917b-fc5519ed3699/collection/4020808-7de0863b-e8f7-4f6a-aaf8-eaead72df32e?action=share&source=collection_link&creator=4020808"
+	},
+	"item": [
+		{
+			"name": "TraderAPI",
+			"item": [
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var response = JSON.parse(responseBody);",
+									"",
+									"if(response.status === \"OK\"){",
+									"    postman.setEnvironmentVariable(\"userLoginEmail\", response.result.email);",
+									"    postman.setEnvironmentVariable(\"auth_type\", response.result.type);",
+									"    postman.setEnvironmentVariable(\"auth_token\", response.result.token)",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "B",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"{{userLoginEmail}}\",\n    \"password\": \"{{userLoginPassword}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}:{{port}}/api/v1/auth/login",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var response = JSON.parse(responseBody);",
+									"var request = JSON.parse(pm.request.body);",
+									"",
+									"if(response.status === \"OK\"){",
+									"    postman.setEnvironmentVariable(\"userLoginEmail\", request.email);",
+									"    postman.setEnvironmentVariable(\"userLoginPassword\", request.password);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"{{$randomEmail}}\",\n    \"password\": \"123456\",\n    \"name\": \"{{$randomFirstName}}\",\n    \"username\": \"{{$randomUserName}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}:{{port}}/api/v1/auth/register",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateUser",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var response = JSON.parse(responseBody);",
+									"",
+									"if(response.status === \"OK\"){",
+									"    postman.setEnvironmentVariable(\"userLoginEmail\", response.result.email);",
+									"    postman.setEnvironmentVariable(\"userFullName\", response.result.name);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "B",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjExLCJlbWFpbCI6ImZhdGloQGZhdGloLmNvbSIsIm5hbWUiOiJmYXRpaCIsInVzZXJuYW1lIjoiZmF0aWhzIiwiaWF0IjoxNjg1Mzc0NDU1LCJleHAiOjE2ODU0NjA4NTV9.mvp15PUqqt3nPdbLwze-MZq9HX-ys-nQv7uOMSoQQKY",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"{{$randomUserName}}\",\n    \"name\": \"{{$randomFullName}}\",\n    \"password\": \"123456\",\n    \"role\": 4\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}:{{port}}/api/v1/user",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"v1",
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buy",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"paperId\": 2,\n    \"quantity\": 2\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}:{{port}}/api/v1/trade/buy",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"v1",
+								"trade",
+								"buy"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Sell",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImVtYWlsIjoidGVzQG1haG11dC5jb20iLCJuYW1lIjoidGVzIiwidXNlcm5hbWUiOiJ0ZXN0cyIsImlhdCI6MTY5ODg3NDAzMiwiZXhwIjoxNjk4OTYwNDMyfQ.z2efZVYMMplg0VJdDvm-cKR3f47scmXPN5NxfHRwJ-0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"fatih@fatih.com\",\n    \"password\": \"123456\",\n    \"name\": \"fatih\",\n    \"username\": \"fatihs\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/v1/trade/sell",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"trade",
+								"sell"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Paper",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"",
+									"const min = 3;",
+									"const max = 5;",
+									"",
+									"function randomNumber(min, max) {",
+									"    return Math.random() * (max - min) + min;",
+									"}",
+									"function randomString(min, max) {",
+									"    const list = \"ABCDEFGHIJKLMNPQRSTUVWXYZ\";",
+									"    var res = \"\";",
+									"    for(var i = 0; i < randomNumber(min, max); i++) {",
+									"        var rnd = Math.floor(Math.random() * list.length);",
+									"        res = res + list.charAt(rnd);",
+									"    }",
+									"    return res;",
+									"}",
+									"pm.variables.set('randomPaperName', randomString(min, max));"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"{{$randomCompanyName}}\",\n    \"code\": \"{{randomPaperName}}\",\n    \"price\": 13.99\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}:{{port}}/api/v1/paper/create",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"v1",
+								"paper",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Paper Portfolio",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"",
+									"const min = 3;",
+									"const max = 5;",
+									"",
+									"function randomNumber(min, max) {",
+									"    return Math.random() * (max - min) + min;",
+									"}",
+									"function randomString(min, max) {",
+									"    const list = \"ABCDEFGHIJKLMNPQRSTUVWXYZ\";",
+									"    var res = \"\";",
+									"    for(var i = 0; i < randomNumber(min, max); i++) {",
+									"        var rnd = Math.floor(Math.random() * list.length);",
+									"        res = res + list.charAt(rnd);",
+									"    }",
+									"    return res;",
+									"}",
+									"pm.variables.set('randomPaperName', randomString(min, max));"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}:{{port}}/api/v1/paper/portfolio",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"v1",
+								"paper",
+								"portfolio"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Paper List",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"",
+									"const min = 3;",
+									"const max = 5;",
+									"",
+									"function randomNumber(min, max) {",
+									"    return Math.random() * (max - min) + min;",
+									"}",
+									"function randomString(min, max) {",
+									"    const list = \"ABCDEFGHIJKLMNPQRSTUVWXYZ\";",
+									"    var res = \"\";",
+									"    for(var i = 0; i < randomNumber(min, max); i++) {",
+									"        var rnd = Math.floor(Math.random() * list.length);",
+									"        res = res + list.charAt(rnd);",
+									"    }",
+									"    return res;",
+									"}",
+									"pm.variables.set('randomPaperName', randomString(min, max));"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"{{$randomCompanyName}}\",\n    \"code\": \"{{randomPaperName}}\",\n    \"price\": 13.99\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}:{{port}}/api/v1/paper/create",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"v1",
+								"paper",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Note",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImVtYWlsIjoiY2VyZW5AY2VyZW4uY29tIiwibmFtZSI6ImNlcmVuIiwidXNlcm5hbWUiOiJjZXJlbnRzIiwiaWF0IjoxNjg1NjQ0NTQ4LCJleHAiOjE2ODU3MzA5NDh9.aHUioAWaN1D8XdVHgdIF8omK4NtW-SIHWOhBnLj3Byo",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "knife ALERT",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "Be careful, a KNIFE has been detected!",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/Users/idrisdemir/Downloads/idris.jpeg"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://iddemir-ts-service.onrender.com/api/v1/note",
+							"protocol": "http",
+							"host": [
+								"iddemir-ts-service",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"api",
+								"v1",
+								"note"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Note local",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjExLCJlbWFpbCI6ImZhdGloQGZhdGloLmNvbSIsIm5hbWUiOiJmYXRpaCIsInVzZXJuYW1lIjoiZmF0aWhzIiwiaWF0IjoxNjg1Mzc0NDU1LCJleHAiOjE2ODU0NjA4NTV9.mvp15PUqqt3nPdbLwze-MZq9HX-ys-nQv7uOMSoQQKY",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "ceren@ceren.com test test2",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "123456",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/Users/idrisdemir/Desktop/Screenshot 2023-05-24 at 01.07.39.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/v1/note",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"note"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
